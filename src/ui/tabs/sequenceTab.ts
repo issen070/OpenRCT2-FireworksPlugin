@@ -1,4 +1,4 @@
-import { t } from "../../localization";
+import { isKorean, t } from "../../localization";
 import { store, compute, OpenWindow, LayoutDirection, label, textbox, listview, flexible, dropdown, groupbox, box, Colour } from "openrct2-flexui";
 import { LoadFireworks, Play, Stop, flattenScheduledEntryToShots } from "../../fireworks/fireworksEffectsPlayer";
 import { ResetCounts } from "../../fireworks/particleSpawner";
@@ -911,7 +911,8 @@ const addAfterButtonLabel = compute(
         const trimmedIndex = indexText.trim();
         const parsedIndex = trimmedIndex ? parseInt(trimmedIndex, 10) : NaN;
         const indexIsValid = isFinite(parsedIndex) && parsedIndex >= 1 && parsedIndex <= items.length;
-        return `Add ${delayDisplay} after ${indexIsValid ? String(parsedIndex) : t("last")}`;
+        const after = indexIsValid ? String(parsedIndex) : t("last");
+        return isKorean() ? `${after} 뒤에 ${delayDisplay} 추가` : `Add ${delayDisplay} after ${after}`;
     }
 );
 
@@ -931,7 +932,7 @@ export function createSequenceTab() {
 
     return [
         groupbox({
-            text: compute(textColour, c => `${c}Sequence Editor`),
+            text: compute(textColour, c => `${c}${t("Sequence Editor")}`),
             height: "1w",
             width: "1w",
             content: [
@@ -948,7 +949,7 @@ export function createSequenceTab() {
                             content: [
                                 // "Sequence Entry" box (auto-height)
                                 box({
-                                    text: compute(textColour, c => `${c}Sequence Entry`),
+                                    text: compute(textColour, c => `${c}${t("Sequence Entry")}`),
                                     width: "1w",
                                     height: 80,
                                     padding: 6,
@@ -963,12 +964,12 @@ export function createSequenceTab() {
                                                     flexible({
                                                         direction: LayoutDirection.Horizontal,
                                                         content: [
-                                                            label({ text: compute(textColour, lockOnTime, (c, lock) => `${c}Time${lock ? t(" [L]") : ""}`), width: 80 }),
+                                                            label({ text: compute(textColour, lockOnTime, (c, lock) => `${c}${t("Time")}${lock ? t(" [L]") : ""}`), width: 80 }),
                                                             label({ text: "", width: 25 }),
-                                                            label({ text: compute(textColour, lockOnTime, (c, lock) => `${c}Delay${!lock ? t(" [L]") : ""}`), width: 70 }),
-                                                            label({ text: compute(textColour, c => `${c}Index`), width: 35 }),
+                                                            label({ text: compute(textColour, lockOnTime, (c, lock) => `${c}${t("Delay")}${!lock ? t(" [L]") : ""}`), width: 70 }),
+                                                            label({ text: compute(textColour, c => `${c}${t("Index")}`), width: 35 }),
                                                             label({ text: "", width: 100 }),
-                                                            label({ text: compute(textColour, c => `${c}Item`), width: 35 }),
+                                                            label({ text: compute(textColour, c => `${c}${t("Item")}`), width: 35 }),
 
                                                         ]
                                                     }),
@@ -1000,17 +1001,17 @@ export function createSequenceTab() {
                                                         direction: LayoutDirection.Horizontal,
                                                         content: [
                                                             colouredButton({
-                                                                text: compute(textColour, c => `${c}Add at`), width: 85, height: 22,
+                                                                text: compute(textColour, c => `${c}${t("Add at")}`), width: 85, height: 22,
                                                                 colour: Colour.DarkPurple, colourDark: Colour.Black, colourLight: Colour.LightPurple, disabled: isPlaying, onClick: onAddAt
                                                             }),
-                                                            label({ text: compute(textColour, c => `${c}or`), width: 20 }),
+                                                            label({ text: compute(textColour, c => `${c}${t("or")}`), width: 20 }),
                                                             colouredButton({
                                                                 text: compute(addAfterButtonLabel, textColour, (l, c) => `${c}${l}`), width: 155, height: 22,
                                                                 colour: Colour.DarkPurple, colourDark: Colour.Black, colourLight: Colour.LightPurple, disabled: isPlaying, onClick: onAddAfterIndex
                                                             }),
                                                             label({ text: "", width: 52 }),
                                                             colouredButton({
-                                                                text: compute(textColour, c => `${c}Same as Last`),
+                                                                text: compute(textColour, c => `${c}${t("Same as Last")}`),
                                                                 width: 100, height: 22,
                                                                 colour: Colour.DarkPurple, colourDark: Colour.Black, colourLight: Colour.LightPurple,
                                                                 disabled: compute(isPlaying, hasLastUsedItem, (playing, hasLast) => playing || !hasLast),
@@ -1032,7 +1033,7 @@ export function createSequenceTab() {
                                                 direction: LayoutDirection.Vertical,
                                                 content: [
                                                     colouredButton({
-                                                        text: compute(textColour, c => `${c}Shell`),
+                                                        text: compute(textColour, c => `${c}${t("Shell")}`),
                                                         width: 100, height: 17,
                                                         colour: Colour.DarkPurple, colourDark: Colour.Black, colourLight: Colour.LightPurple,
                                                         disabled: isPlaying,
@@ -1046,7 +1047,7 @@ export function createSequenceTab() {
                                                         })
                                                     }),
                                                     colouredButton({
-                                                        text: compute(textColour, c => `${c}GroundEffect`),
+                                                        text: compute(textColour, c => `${c}${t("GroundEffect")}`),
                                                         width: 100, height: 17,
                                                         colour: Colour.DarkPurple, colourDark: Colour.Black, colourLight: Colour.LightPurple,
                                                         disabled: isPlaying,
@@ -1060,7 +1061,7 @@ export function createSequenceTab() {
                                                         })
                                                     }),
                                                     colouredButton({
-                                                        text: compute(textColour, c => `${c}Sequence`),
+                                                        text: compute(textColour, c => `${c}${t("Sequence")}`),
                                                         width: 100, height: 17,
                                                         colour: Colour.DarkPurple, colourDark: Colour.Black, colourLight: Colour.LightPurple,
                                                         disabled: isPlaying,
@@ -1080,7 +1081,7 @@ export function createSequenceTab() {
                                 }),
                                 // "Current Sequence" box (fills remaining height)
                                 box({
-                                    text: compute(textColour, c => `${c}Current Sequence`),
+                                    text: compute(textColour, c => `${c}${t("Current Sequence")}`),
                                     width: "1w",
                                     height: "1w",
                                     padding: 6,
@@ -1088,7 +1089,7 @@ export function createSequenceTab() {
                                         direction: LayoutDirection.Vertical,
                                         content: [
                                             // Name
-                                            label({ text: compute(textColour, c => `${c}Name`) }),
+                                            label({ text: compute(textColour, c => `${c}${t("Name")}`) }),
                                             textbox({
                                                 text: editedSequenceName,
                                                 onChange: v => editedSequenceName.set(v),
@@ -1102,9 +1103,9 @@ export function createSequenceTab() {
                                                 direction: LayoutDirection.Horizontal,
                                                 height: 18,
                                                 content: [
-                                                    label({ text: compute(textColour, c => `${c}Lock:`), width: 38 }),
+                                                    label({ text: compute(textColour, c => `${c}${t("Lock:")}`), width: 38 }),
                                                     colouredButton({
-                                                        text: compute(lockOnTime, textColour, (lock, c) => lock ? t("{TOPAZ}Time") : `${c}Time`),
+                                                        text: compute(lockOnTime, textColour, (lock, c) => lock ? t("{TOPAZ}Time") : `${c}${t("Time")}`),
                                                         width: 72,
                                                         height: 18,
                                                         colour: Colour.DarkPurple, colourDark: Colour.Black, colourLight: Colour.LightPurple,
@@ -1113,7 +1114,7 @@ export function createSequenceTab() {
                                                         onClick: () => lockOnTime.set(true)
                                                     }),
                                                     colouredButton({
-                                                        text: compute(lockOnTime, textColour, (lock, c) => !lock ? t("{TOPAZ}Delay") : `${c}Delay`),
+                                                        text: compute(lockOnTime, textColour, (lock, c) => !lock ? t("{TOPAZ}Delay") : `${c}${t("Delay")}`),
                                                         width: 55,
                                                         height: 18,
                                                         colour: Colour.DarkPurple, colourDark: Colour.Black, colourLight: Colour.LightPurple,
@@ -1248,7 +1249,7 @@ export function createSequenceTab() {
                                                 height: 20,
                                                 content: [
                                                     colouredButton({
-                                                        text: compute(isDeleteMode, textColour, (d, c) => d ? `${c}Delete Mode: {RED}ON` : `${c}Delete Mode: OFF`),
+                                                        text: compute(isDeleteMode, textColour, (d, c) => `${c}${d ? t("Delete Mode: {RED}ON") : t("Delete Mode: OFF")}`),
                                                         width: 115, height: 22,
                                                         colour: Colour.DarkPurple, colourDark: Colour.Black, colourLight: Colour.LightPurple,
                                                         pressed: isDeleteMode,
@@ -1269,11 +1270,11 @@ export function createSequenceTab() {
                                                     }),
                                                     label({ text: "", width: "1w" }),
                                                     colouredButton({
-                                                        text: compute(textColour2, c => `${c}Play from start`), width: 95, height: 22,
+                                                        text: compute(textColour2, c => `${c}${t("Play from start")}`), width: 95, height: 22,
                                                         colour: Colour.LightOrange, colourDark: Colour.DarkOrange, colourLight: Colour.OrangeLight, disabled: isPlaying, onClick: onPlaySequenceClick
                                                     }),
                                                     colouredButton({
-                                                        text: compute(textColour2, c => `${c}Play from index`), width: 95, height: 22,
+                                                        text: compute(textColour2, c => `${c}${t("Play from index")}`), width: 95, height: 22,
                                                         colour: Colour.LightOrange, colourDark: Colour.DarkOrange, colourLight: Colour.OrangeLight, disabled: isPlaying, onClick: onPlayFromIndexClick
                                                     }),
                                                     colouredButton({
@@ -1288,16 +1289,16 @@ export function createSequenceTab() {
                                                 direction: LayoutDirection.Horizontal,
                                                 content: [
                                                     colouredButton({
-                                                        text: compute(textColour2, c => `${c}Add Sequence`), width: 110, height: 22,
+                                                        text: compute(textColour2, c => `${c}${t("Add Sequence")}`), width: 110, height: 22,
                                                         colour: Colour.SaturatedGreen, colourDark: Colour.GrassGreenDark, colourLight: Colour.BrightGreen, disabled: isPlaying, onClick: addOrUpdateSequence
                                                     }),
                                                     colouredButton({
-                                                        text: compute(textColour2, c => `${c}New`), width: 50, height: 22,
+                                                        text: compute(textColour2, c => `${c}${t("New")}`), width: 50, height: 22,
                                                         colour: Colour.LightBlue, colourDark: Colour.DarkBlue, colourLight: Colour.IcyBlue, disabled: isPlaying,
                                                         onClick: () => confirmDiscardChanges(isSequenceEditorDirty, resetSequenceEditor)
                                                     }),
                                                     colouredButton({
-                                                        text: compute(textColour2, c => `${c}Delete Sequence`), width: 110, height: 22,
+                                                        text: compute(textColour2, c => `${c}${t("Delete Sequence")}`), width: 110, height: 22,
                                                         colour: Colour.SaturatedRed, colourDark: Colour.BordeauxRedDark, colourLight: Colour.BrightRed, disabled: isPlaying, onClick: deleteSelectedSequence
                                                     }),
                                                     label({ text: "", width: "1w" }),
@@ -1314,7 +1315,7 @@ export function createSequenceTab() {
                         }),
                         // ---- Right: Sequences list box ----
                         box({
-                            text: compute(textColour, c => `${c}Defined Sequences`),
+                            text: compute(textColour, c => `${c}${t("Defined Sequences")}`),
                             width: 160,
                             height: "1w",
                             padding: 6,

@@ -435,6 +435,7 @@ export const koreanTranslations: Record<string, string> = {
     "Orientation of the effect in the vertical plane": "효과의 수직 방향",
     "Orientation of the ring in the horizontal plane": "고리의 수평 방향",
     "Orientation of the ring in the vertical plane": "고리의 수직 방향",
+    "or": "또는",
     "Other Settings": "기타 설정",
     "Palette Options": "팔레트 설정",
     "Palm": "야자수형 폭발",

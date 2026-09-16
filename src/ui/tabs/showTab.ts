@@ -838,7 +838,7 @@ export function createShowTab()
                                     flexible({
                                         direction: LayoutDirection.Horizontal,
                                         content: [
-                                            label({ text: compute(selectedSequenceName, name => `Sequence: ${name.trim() || t("[None]")}`), width: "1w" }),
+                                            label({ text: compute(selectedSequenceName, name => `${t("Sequence: ")}${name.trim() || t("[None]")}`), width: "1w" }),
                                             colouredButton({
                                                 text: t("Select Sequence"),
                                                 width: 120,
@@ -949,7 +949,7 @@ export function createShowTab()
                                     flexible({
                                         direction: LayoutDirection.Horizontal,
                                         content: [
-                                            label({ text: compute(selectedLaunchSiteName, name => `Location for news message locator: ${name.trim() || t("[None]")}`), width: "1w" })
+                                            label({ text: compute(selectedLaunchSiteName, name => `${t("Location for news message locator: ")}${name.trim() || t("[None]")}`), width: "1w" })
                                         ]
                                     }),
                                     // ---- Test / Stop controls ----
