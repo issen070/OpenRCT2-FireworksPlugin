@@ -1,5 +1,5 @@
-import { getLanguage, setLanguage, t } from "../../localization";
-import { colourPicker, compute, dropdown, flexible, groupbox, label, LayoutDirection, listview, store, textbox, Colour } from "openrct2-flexui";
+import { t } from "../../localization";
+import { colourPicker, compute, flexible, groupbox, label, LayoutDirection, listview, store, textbox, Colour } from "openrct2-flexui";
 import type { OpenWindow } from "openrct2-flexui";
 import { numberInputSpinner } from "../numberInputSpinner";
 import { ColourSequence, maxColourSequenceLength } from "../../fireworks/structures/ColourStructures";
@@ -22,7 +22,6 @@ const DEFAULT_COLOUR_SEQUENCE_EDITOR = {
 };
 
 const selectedColourSequenceIndex = store<number | undefined>(DEFAULT_COLOUR_SEQUENCE_EDITOR.selectedIndex);
-const selectedLanguageIndex = store(getLanguage() === "ko-KR" ? 1 : 0);
 const colourSequenceName = store(DEFAULT_COLOUR_SEQUENCE_EDITOR.name);
 const colourSequenceLength = store(DEFAULT_COLOUR_SEQUENCE_EDITOR.length);
 const colourSequenceColourStores = [
@@ -369,23 +368,6 @@ export function createConfigTab()
 					width: "1w",
 					height: 290,
 					content: [
-						flexible({
-							direction: LayoutDirection.Horizontal,
-							height: 20,
-							content: [
-								label({ text: t("Language"), width: 80 }),
-								dropdown({
-									items: ["English", "한국어"],
-									selectedIndex: selectedLanguageIndex,
-									width: 190,
-									onChange: index => {
-										selectedLanguageIndex.set(index);
-										setLanguage(index === 1 ? "ko-KR" : "en-GB");
-									}
-								})
-							]
-						}),
-						label({ text: t("Restart OpenRCT2 to apply the language."), height: 14 }),
 						colouredButton({
 							width: 290,
 							height: 52,

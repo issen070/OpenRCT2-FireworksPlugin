@@ -639,6 +639,4 @@ export const koreanTranslations: Record<string, string> = {
 };
 
 Object.assign(koreanTranslations, {
-    "Language": "언어",
-    "Restart OpenRCT2 to apply the language.": "언어를 적용하려면 OpenRCT2를 다시 시작하세요."
 });
