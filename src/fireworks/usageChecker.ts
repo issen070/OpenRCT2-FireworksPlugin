@@ -1,4 +1,4 @@
-import { isKorean, t } from "../localization";
+import { formatLocalized, t } from "../localization";
 import { ColourSequence } from "./structures/ColourStructures";
 import { cloneEffect, cloneLoad, cloneSequence } from "./cloneHelpers";
 import { getLoadMap, getShellMap, getGroundEffectMap, getSequenceMap, getShotShowMap, resolveSequence, setLoadList, setShellList, setGroundEffectList, setSequenceList, setShotShow, colourSequences, launchSites, getEditLoad, setEditLoad, getShellToEdit, setShellToEdit, getGroundEffectToEdit, setGroundEffectToEdit, getEditSequence, setEditSequence, getEditShow, setEditShow } from "./persistent";
@@ -595,7 +595,7 @@ export function formatValidationIssues(issues: ValidationIssue[], maxShown: numb
 	const rest = issues.length - shown.length;
 	const lines = shown.map(i => `\u2022 ${i.problem} (at ${i.path})`);
 	if (rest > 0) {
-		lines.push(isKorean() ? `\u2026 그 외 문제 ${rest}개` : `\u2026 and ${rest} more issue${rest > 1 ? "s" : ""}`);
+		lines.push(formatLocalized(rest === 1 ? "… and {count} more issue" : "… and {count} more issues", `… and ${rest} more issue${rest > 1 ? "s" : ""}`, { count: rest }));
 	}
 	return lines.join("\n");
 }

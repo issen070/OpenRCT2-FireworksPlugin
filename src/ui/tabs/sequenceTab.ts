@@ -1,4 +1,4 @@
-import { isKorean, t } from "../../localization";
+import { formatLocalized, t } from "../../localization";
 import { store, compute, OpenWindow, LayoutDirection, label, textbox, listview, flexible, dropdown, groupbox, box, Colour } from "openrct2-flexui";
 import { LoadFireworks, Play, Stop, flattenScheduledEntryToShots } from "../../fireworks/fireworksEffectsPlayer";
 import { ResetCounts } from "../../fireworks/particleSpawner";
@@ -912,7 +912,7 @@ const addAfterButtonLabel = compute(
         const parsedIndex = trimmedIndex ? parseInt(trimmedIndex, 10) : NaN;
         const indexIsValid = isFinite(parsedIndex) && parsedIndex >= 1 && parsedIndex <= items.length;
         const after = indexIsValid ? String(parsedIndex) : t("last");
-        return isKorean() ? `${after} 뒤에 ${delayDisplay} 추가` : `Add ${delayDisplay} after ${after}`;
+        return formatLocalized("Add {delay} after {index}", `Add ${delayDisplay} after ${after}`, { delay: delayDisplay, index: after });
     }
 );
 

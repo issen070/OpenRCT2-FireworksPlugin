@@ -1,4 +1,4 @@
-import { isKorean, t } from "../localization";
+import { formatLocalized, t } from "../localization";
 import { AddNewsMessage } from "./helpers";
 import * as persistent from "./persistent";
 import { AddFireworksPlayer, ClearFireworksEffects, Play, Stop } from "./fireworksEffectsPlayer";
@@ -241,9 +241,9 @@ function formatTickCountdown(ticksUntil: number): string
 {
     if (ticksUntil <= 0) return t("Imminent");
     const secondsLeft = Math.ceil(ticksUntil / 40);
-    if (secondsLeft < 120)       return isKorean() ? `${secondsLeft}초` : `${secondsLeft}s`;
-    if (secondsLeft < 7200)      return isKorean() ? `${Math.ceil(secondsLeft / 60)}분` : `${Math.ceil(secondsLeft / 60)} min`;
-    return isKorean() ? `${Math.ceil(secondsLeft / 3600)}시간` : `${Math.ceil(secondsLeft / 3600)} hr`;
+    if (secondsLeft < 120)       return formatLocalized("{count}s", `${secondsLeft}s`, { count: secondsLeft });
+    if (secondsLeft < 7200)      return formatLocalized("{count} min", `${Math.ceil(secondsLeft / 60)} min`, { count: Math.ceil(secondsLeft / 60) });
+    return formatLocalized("{count} hr", `${Math.ceil(secondsLeft / 3600)} hr`, { count: Math.ceil(secondsLeft / 3600) });
 }
 
 /** Status (playing / time until next run) for every currently scheduled show. */
@@ -295,7 +295,7 @@ export function getScheduledShowsStatus(): ScheduledShowStatus[]
         }
 
         const daysLeft = daysUntilNextDateTrigger(show.trigger, firedToday);
-        const status   = daysLeft === 0 ? t("Today") : isKorean() ? `${daysLeft}일` : `${daysLeft} day${daysLeft !== 1 ? "s" : ""}`;
+        const status   = daysLeft === 0 ? t("Today") : formatLocalized(daysLeft === 1 ? "{count} day" : "{count} days", `${daysLeft} day${daysLeft !== 1 ? "s" : ""}`, { count: daysLeft });
         results.push({ name: state.showName, status, isPlaying: false });
     }
 

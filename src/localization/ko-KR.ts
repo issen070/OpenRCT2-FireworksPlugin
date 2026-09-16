@@ -640,4 +640,32 @@ export const koreanTranslations: Record<string, string> = {
 };
 
 Object.assign(koreanTranslations, {
+    "Every {count} min": "매 {count}분",
+    "{day} of each month": "매월 {day}일",
+    "Every {month} {day}": "매년 {month} {day}일",
+    "{month} {day}": "{month} {day}일",
+    "{count}s": "{count}초",
+    "{count} min": "{count}분",
+    "{count} hr": "{count}시간",
+    "{count} day": "{count}일",
+    "{count} days": "{count}일",
+    "Add {delay} after {index}": "{index} 뒤에 {delay} 추가",
+    "… and {count} more issue": "… 그 외 문제 {count}개",
+    "… and {count} more issues": "… 그 외 문제 {count}개"
 });
+
+// A new locale may provide its own text layout adjustments.
+export const koreanMetrics: Record<string, number> = {
+    "tutorial.width": 620,
+    "tutorial.about.height": 371,
+    "tutorial.launchSites.height": 363,
+    "tutorial.loads.height": 452,
+    "tutorial.shells.height": 511,
+    "tutorial.groundEffects.height": 232,
+    "tutorial.sequences.height": 678,
+    "tutorial.shows.height": 490,
+    "tutorial.config.height": 265,
+    "tutorial.label.lineHeight": 15,
+    "effect.explanation.width": 620,
+    "effect.explanation.lineHeight": 14
+};

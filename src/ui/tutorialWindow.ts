@@ -1,12 +1,12 @@
-import { isKorean, localizedMetric, t } from "../localization";
+import { localizedMetric, localizedTextHeight, t } from "../localization";
 import { Colour, flexible, label, LayoutDirection, tab } from "openrct2-flexui";
 import { customImageFor } from "../img/images";
 import { openPopupTabWindow } from "./popupWindows";
 
 function tutorialLabel(text: string, englishHeight: number)
 {
-    const koreanHeight = text.split("\n").filter(line => line.trim().length > 0).length * 15 + 4;
-    return label({ text, height: isKorean() ? koreanHeight : englishHeight, width: "1w" });
+    const lineCount = text.split("\n").filter(line => line.trim().length > 0).length;
+    return label({ text, height: localizedTextHeight("tutorial.label.lineHeight", englishHeight, lineCount, 4), width: "1w" });
 }
 
 function createTutorialAboutTab() {
@@ -273,50 +273,50 @@ export function openTutorialWindow(): void {
 
     tutorialWindowHandle = openPopupTabWindow("tutorial", {
         title: t("Fireworks - Tutorial"),
-        width: localizedMetric(420, 620),
-        height: localizedMetric(330, 371),
+        width: localizedMetric("tutorial.width", 420),
+        height: localizedMetric("tutorial.about.height", 330),
         colours: [Colour.DarkBlue, Colour.OliveDark],
         position: "center",
         padding: 8,
         startingTab: 0,
         tabs: [
             tab({
-                onOpen: () => {resizeTutorialWindow(localizedMetric(420, 620), localizedMetric(330, 371)) },
+                onOpen: () => {resizeTutorialWindow(localizedMetric("tutorial.width", 420), localizedMetric("tutorial.about.height", 330)) },
                 image: { frameBase: 5367, frameCount: 8, frameDuration: 4 },
                 content: createTutorialAboutTab()
             }),
             tab({
-                onOpen: () => { resizeTutorialWindow(localizedMetric(420, 620), localizedMetric(350, 363))},
+                onOpen: () => { resizeTutorialWindow(localizedMetric("tutorial.width", 420), localizedMetric("tutorial.launchSites.height", 350))},
                 image: customImageFor("launchSiteTab"),
                 content: createTutorialLaunchSitesTab()
             }),
             tab({
-                onOpen: () => {resizeTutorialWindow(localizedMetric(420, 620), localizedMetric(380, 452)) },
+                onOpen: () => {resizeTutorialWindow(localizedMetric("tutorial.width", 420), localizedMetric("tutorial.loads.height", 380)) },
                 image: customImageFor("loadTab"),
                 content: createTutorialLoadsTab()
             }),
             tab({
-                onOpen: () => {resizeTutorialWindow(localizedMetric(420, 620), localizedMetric(440, 511)) },
+                onOpen: () => {resizeTutorialWindow(localizedMetric("tutorial.width", 420), localizedMetric("tutorial.shells.height", 440)) },
                 image: customImageFor("shellTab"),
                 content: createTutorialShellsTab()
             }),
             tab({
-                onOpen: () => {resizeTutorialWindow(localizedMetric(420, 620), localizedMetric(220, 232)) },
+                onOpen: () => {resizeTutorialWindow(localizedMetric("tutorial.width", 420), localizedMetric("tutorial.groundEffects.height", 220)) },
                 image: customImageFor("groundEffectTab"),
                 content: createTutorialGroundEffectsTab()
             }),
             tab({
-                onOpen: () => {resizeTutorialWindow(localizedMetric(420, 620), localizedMetric(610, 678)) },
+                onOpen: () => {resizeTutorialWindow(localizedMetric("tutorial.width", 420), localizedMetric("tutorial.sequences.height", 610)) },
                 image: customImageFor("sequenceTab"),
                 content: createTutorialSequenceTab()
             }),
             tab({
-                onOpen: () => {resizeTutorialWindow(localizedMetric(420, 620), localizedMetric(410, 490)) },
+                onOpen: () => {resizeTutorialWindow(localizedMetric("tutorial.width", 420), localizedMetric("tutorial.shows.height", 410)) },
                 image: customImageFor("showTab"),
                 content: createTutorialShowTab()
             }),
             tab({
-                onOpen: () => {resizeTutorialWindow(localizedMetric(420, 620), localizedMetric(250, 265)) },
+                onOpen: () => {resizeTutorialWindow(localizedMetric("tutorial.width", 420), localizedMetric("tutorial.config.height", 250)) },
                 image: { frameBase: 5201, frameCount: 4, frameDuration: 4 },
                 content: createTutorialConfigTab()
             }),

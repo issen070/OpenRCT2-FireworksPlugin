@@ -1,4 +1,4 @@
-import { isKorean, t } from "../../localization";
+import { formatLocalized, t } from "../../localization";
 import {
     box, checkbox, compute, dropdown, flexible, groupbox, label, LayoutDirection, listview, store, textbox, OpenWindow, Colour
 } from "openrct2-flexui";
@@ -62,20 +62,20 @@ function triggerDetailsLabel(trigger: ShowTrigger): string
     switch (trigger.kind)
     {
         case ShowTriggerKind.RealTimeInterval:
-            return isKorean() ? `매 ${trigger.intervalMinutes}분` : `Every ${trigger.intervalMinutes} min`;
+            return formatLocalized("Every {count} min", `Every ${trigger.intervalMinutes} min`, { count: trigger.intervalMinutes });
         case ShowTriggerKind.InGameRecurring:
             if (trigger.period === InGameRecurringPeriod.Daily)
                 return t("Every day");
             if (trigger.period === InGameRecurringPeriod.Monthly)
-                return isKorean() ? `매월 ${trigger.dayOfMonth ?? 1}일` : `${ordinalSuffix(trigger.dayOfMonth ?? 1)} of each month`;
-            return isKorean()
-                ? `매년 ${INGAME_MONTH_NAMES[trigger.month ?? 0] ?? "?"} ${trigger.dayOfMonth ?? 1}일`
-                : `Every ${INGAME_MONTH_NAMES[trigger.month ?? 0] ?? "?"} ${ordinalSuffix(trigger.dayOfMonth ?? 1)}`;
+                return formatLocalized("{day} of each month", `${ordinalSuffix(trigger.dayOfMonth ?? 1)} of each month`, { day: trigger.dayOfMonth ?? 1 });
+            return formatLocalized("Every {month} {day}",
+                `Every ${INGAME_MONTH_NAMES[trigger.month ?? 0] ?? "?"} ${ordinalSuffix(trigger.dayOfMonth ?? 1)}`,
+                { month: INGAME_MONTH_NAMES[trigger.month ?? 0] ?? "?", day: trigger.dayOfMonth ?? 1 });
         case ShowTriggerKind.InGameAnnualDates:
             if (trigger.dates.length === 0) return t("(no dates)");
-            return trigger.dates.map(d => isKorean()
-                ? `${INGAME_MONTH_NAMES[d.month] ?? "?"} ${d.day}일`
-                : `${INGAME_MONTH_NAMES[d.month] ?? "?"} ${d.day}`).join(", ");
+            return trigger.dates.map(d => formatLocalized("{month} {day}",
+                `${INGAME_MONTH_NAMES[d.month] ?? "?"} ${d.day}`,
+                { month: INGAME_MONTH_NAMES[d.month] ?? "?", day: d.day })).join(", ");
     }
 }
 

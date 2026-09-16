@@ -1,4 +1,4 @@
-import { isKorean, localizedMetric, t } from "../../localization";
+import { localizedMetric, localizedTextHeight, t } from "../../localization";
 import { colourPicker, compute, dropdown, flexible, store, textbox , horizontal, label, LayoutDirection, type FlexibleLayoutContainer, type OpenWindow, window, Colour } from "openrct2-flexui";
 import { getMainWindowPosition } from "../windowState";
 import { makePopupGroupSwitchable, openPopupCustom, openPopupWindow } from "../popupWindows";
@@ -40,7 +40,7 @@ export function openEffectExplanationWindow(title: string, paragraphs: Explanati
 
 	handle = openPopupWindow(`effect-explanation-${title}`, {
 		title: `${title} ${t("Info")}`,
-		width: localizedMetric(460, 620),
+		width: localizedMetric("effect.explanation.width", 460),
 		height: "auto",
 		padding: 8,
 		position,
@@ -54,7 +54,7 @@ export function openEffectExplanationWindow(title: string, paragraphs: Explanati
 					estimateLines(paragraph.term ?? "", 24),
 					estimateLines(paragraph.description ?? "", 52)
 				);
-				const paragraphHeight = isKorean() ? Math.max(14, lineCount * 14) : paragraph.height;
+				const paragraphHeight = localizedTextHeight("effect.explanation.lineHeight", paragraph.height, lineCount);
 				return paragraph.term !== undefined
 				? flexible({
 					direction: LayoutDirection.Horizontal,
