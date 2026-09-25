@@ -656,7 +656,6 @@ Object.assign(koreanTranslations, {
 
 // A new locale may provide its own text layout adjustments.
 export const koreanMetrics: Record<string, number> = {
-    "tutorial.width": 620,
     "tutorial.about.height": 371,
     "tutorial.launchSites.height": 363,
     "tutorial.loads.height": 452,

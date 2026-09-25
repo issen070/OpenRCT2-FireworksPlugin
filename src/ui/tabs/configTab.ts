@@ -370,7 +370,7 @@ export function createConfigTab()
 					content: [
 						colouredButton({
 							width: 290,
-							height: 52,
+							height: 65,
 							colour: Colour.SaturatedRed, colourDark: Colour.BordeauxRedDark, colourLight: Colour.BrightRed,
 							text: t("{WHITE}Delete all data"),
 							onClick: () => openDeleteAllDataConfirmWindow(() => {
@@ -379,21 +379,21 @@ export function createConfigTab()
 						}),
 						colouredButton({
 							width: 290,
-							height: 52,
+							height: 65,
 							colour: Colour.Grey, colourDark: Colour.Black, colourLight: Colour.White,
 							text: t("Export Data"),
 							onClick: openExportWindow
 						}),
 						colouredButton({
 							width: 290,
-							height: 52,
+							height: 65,
 							colour: Colour.Grey, colourDark: Colour.Black, colourLight: Colour.White,
 							text: t("Import Data"),
 							onClick: openImportWindow
 						}),
 						colouredButton({
 							width: 290,
-							height: 52,
+							height: 65,
 							colour: Colour.Grey, colourDark: Colour.Black, colourLight: Colour.White,
 							text: t("Open Tutorial"),
 							onClick: openTutorialWindow
