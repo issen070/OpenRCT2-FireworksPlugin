@@ -1,4 +1,4 @@
-import { t } from "../localization";
+import { formatLocalized, t } from "../localization";
 import { flexible, label, LayoutDirection, read, spinner, store, twoway } from "openrct2-flexui";
 import type { Bindable } from "openrct2-flexui";
 
@@ -59,7 +59,11 @@ export function openNumberInputWindow(
 
 	ui.showTextInput({
 		title: titleText,
-		description: `Enter a value (${minVal} - ${maxVal}):`,
+		description: formatLocalized(
+			"Enter a value ({minimum} - {maximum}):",
+			`Enter a value (${minVal} - ${maxVal}):`,
+			{ minimum: minVal, maximum: maxVal }
+		),
 		initialValue,
 		callback: (text) => {
 			const parsed = parseFloat(text.trim());

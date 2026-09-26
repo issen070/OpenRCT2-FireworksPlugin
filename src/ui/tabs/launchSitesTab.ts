@@ -435,7 +435,7 @@ export function createLaunchSitesTab() {
 											direction: LayoutDirection.Horizontal,
 											content: [
 												label({
-													text: compute(launchSiteEntityId, value => value === undefined ? t("Entity: none") : `Entity: ${value}`)
+													text: compute(launchSiteEntityId, value => value === undefined ? t("Entity: none") : `${t("Entity: ")}${value}`)
 												}),
 												colouredButton({
 													text: t("Unfollow"),

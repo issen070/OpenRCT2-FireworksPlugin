@@ -1,4 +1,4 @@
-import { t } from "../localization";
+import { formatLocalized, t } from "../localization";
 import { Colour, flexible, label, LayoutDirection, listview, store } from "openrct2-flexui";
 import type { OpenWindow } from "openrct2-flexui";
 import { UsageReference } from "../fireworks/usageChecker";
@@ -64,7 +64,11 @@ export function openUsageWarningWindow(
 		colours: [Colour.BordeauxRedDark, Colour.Grey],
 		direction: LayoutDirection.Vertical,
 		content: [
-			label({ text: `{WHITE}Warning: ${itemLabel} is referenced by:` }),
+			label({ text: formatLocalized(
+				"{WHITE}Warning: {item} is referenced by:",
+				`{WHITE}Warning: ${itemLabel} is referenced by:`,
+				{ item: itemLabel }
+			) }),
 			listview({
 				items: store(usageRows),
 				columns: [

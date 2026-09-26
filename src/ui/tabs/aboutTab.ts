@@ -49,7 +49,7 @@ export function createAboutTabForPlayer()
                         label({ text: t("Version: ") + pluginVersion }),
                         label({ text: t("Download: ") + downloadURLBreak, height: 24 }),
                         label({ text: t("Built with openrct2-flexui") }),
-                        label({ text: "Special Thanks: Basssiiie, Manticore_007, \n                                         TimmyTuner, In_Error_Predicting_A_Fault", height: 24}),                        
+                        label({ text: t("Special Thanks: ") + "Basssiiie, Manticore_007, \n                                         TimmyTuner, In_Error_Predicting_A_Fault", height: 24}),
                     ]
                 })
             ]

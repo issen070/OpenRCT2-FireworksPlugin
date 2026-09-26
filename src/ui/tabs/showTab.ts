@@ -123,7 +123,11 @@ function triggerValidationWarning(trigger: ShowTrigger, durationFrames: number):
     if (intervalFrames >= durationFrames) return "";
     const intSec = (intervalFrames / 40).toFixed(1);
     const durSec = (durationFrames / 40).toFixed(1);
-    return `Warning: interval ~${intSec}s < sequence duration ~${durSec}s`;
+    return formatLocalized(
+        "Warning: interval ~{interval}s < sequence duration ~{duration}s",
+        `Warning: interval ~${intSec}s < sequence duration ~${durSec}s`,
+        { interval: intSec, duration: durSec }
+    );
 }
 
 // ---- Module-level stores ----

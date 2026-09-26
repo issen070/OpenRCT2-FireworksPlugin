@@ -1,4 +1,4 @@
-import { t } from "../../localization";
+import { formatLocalized, t } from "../../localization";
 import { colourPicker, compute, flexible, groupbox, label, LayoutDirection, listview, store, textbox, Colour } from "openrct2-flexui";
 import type { OpenWindow } from "openrct2-flexui";
 import { numberInputSpinner } from "../numberInputSpinner";
@@ -356,7 +356,11 @@ export function createConfigTab()
 									]
 								}),
 								groupbox({
-									text: compute(colourSequenceLength, length => `Colour line (${length}/${maxColourSequenceLength})`),
+									text: compute(colourSequenceLength, length => formatLocalized(
+										"Colour line ({count}/{maximum})",
+										`Colour line (${length}/${maxColourSequenceLength})`,
+										{ count: length, maximum: maxColourSequenceLength }
+									)),
 									content: [
 										createColourPickerRow()
 									]

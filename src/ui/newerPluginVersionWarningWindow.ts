@@ -1,4 +1,4 @@
-import { t } from "../localization";
+import { formatLocalized, t } from "../localization";
 import { Colour, flexible, label, LayoutDirection } from "openrct2-flexui";
 import type { OpenWindow } from "openrct2-flexui";
 import { openPopupWindow } from "./popupWindows";
@@ -21,10 +21,22 @@ export function openNewerPluginVersionWarningWindow(savedVersion: string, curren
 		colours: [Colour.BordeauxRedDark, Colour.Grey],
 		direction: LayoutDirection.Vertical,
 		content: [
-			label({ text: `{WHITE}This park was saved with the Fireworks plugin version: ${savedVersion}.` }),
-			label({ text: `{WHITE}This installation of the Fireworks plugin is ${currentVersion}{WHITE}.` }),
+			label({ text: formatLocalized(
+				"{WHITE}This park was saved with the Fireworks plugin version: {version}.",
+				`{WHITE}This park was saved with the Fireworks plugin version: ${savedVersion}.`,
+				{ version: savedVersion }
+			) }),
+			label({ text: formatLocalized(
+				"{WHITE}This installation of the Fireworks plugin is {version}{WHITE}.",
+				`{WHITE}This installation of the Fireworks plugin is ${currentVersion}{WHITE}.`,
+				{ version: currentVersion }
+			) }),
 			label({ text: t("{WHITE}An attempt has been made to load, but some or all features may be broken.") }),
-			label({ text: `{WHITE}Download the new version from\n${downloadURL}`, height: 28 }),
+			label({ text: formatLocalized(
+				"{WHITE}Download the new version from\n{url}",
+				`{WHITE}Download the new version from\n${downloadURL}`,
+				{ url: downloadURL }
+			), height: 28 }),
 			flexible({
 				direction: LayoutDirection.Horizontal,
 				content: [

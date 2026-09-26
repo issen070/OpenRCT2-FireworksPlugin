@@ -373,7 +373,11 @@ function onAddAt(): void {
     const timeStr = entryEditTimeText.get().trim();
     const absoluteTime = parseTimeString(timeStr);
     if (absoluteTime === undefined) {
-        showError(t("Invalid time"), `"${timeStr}" is not a valid time. Examples: 2s, 80t, 1m30s, 01m30s10t`);
+        showError(t("Invalid time"), formatLocalized(
+            "\"{value}\" is not a valid time. Examples: 2s, 80t, 1m30s, 01m30s10t",
+            `"${timeStr}" is not a valid time. Examples: 2s, 80t, 1m30s, 01m30s10t`,
+            { value: timeStr }
+        ));
         return;
     }
 
@@ -412,7 +416,11 @@ function onAddAfterIndex(): void {
     const delayStr = entryEditDelayText.get().trim();
     const delay = parseTimeString(delayStr || "0");
     if (delay === undefined) {
-        showError(t("Invalid delay"), `"${delayStr}" is not a valid delay. Examples: 2s, 80t, 1m30s`);
+        showError(t("Invalid delay"), formatLocalized(
+            "\"{value}\" is not a valid delay. Examples: 2s, 80t, 1m30s",
+            `"${delayStr}" is not a valid delay. Examples: 2s, 80t, 1m30s`,
+            { value: delayStr }
+        ));
         return;
     }
     const indexStr = entryEditIndexText.get().trim();
@@ -560,7 +568,11 @@ function openConfirmDeleteWindow(itemLabel: string, onConfirm: () => void): void
             flexible({
                 direction: LayoutDirection.Vertical,
                 content: [
-                    label({ text: `{WHITE}Are you sure you want to delete\n${itemLabel}?`, height: 30 }),
+                    label({ text: formatLocalized(
+                        "{WHITE}Are you sure you want to delete\n{item}?",
+                        `{WHITE}Are you sure you want to delete\n${itemLabel}?`,
+                        { item: itemLabel }
+                    ), height: 30 }),
                     flexible({
                         direction: LayoutDirection.Horizontal,
                         content: [

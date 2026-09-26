@@ -1,4 +1,4 @@
-import { t } from "../../localization";
+import { formatLocalized, t } from "../../localization";
 import {    box,    checkbox,    colourPicker,    compute,    dropdown,    flexible,    groupbox,    label,    LayoutDirection,    listview,    store,    textbox,    OpenWindow,    Colour} from "openrct2-flexui";
 import { numberInputSpinner } from "../numberInputSpinner";
 import { ShellColours } from "../../fireworks/structures/ColourStructures";
@@ -333,7 +333,11 @@ function validateShellEditor(): boolean {
     const invalidAscendEffect = ascendEffectsStore.get().find((e: ShellLoad) => e.timeTillExplode > currentDelay);
     if (invalidAscendEffect) {
         if (typeof ui !== "undefined" && typeof ui.showError === "function")
-            ui.showError(t("Invalid shell"), `Ascend load "${invalidAscendEffect.loadName}" fires at delay ${invalidAscendEffect.timeTillExplode}, which exceeds the shell delay of ${currentDelay}.`);
+            ui.showError(t("Invalid shell"), formatLocalized(
+                "Ascend load \"{name}\" fires at delay {delay}, which exceeds the shell delay of {shellDelay}.",
+                `Ascend load "${invalidAscendEffect.loadName}" fires at delay ${invalidAscendEffect.timeTillExplode}, which exceeds the shell delay of ${currentDelay}.`,
+                { name: invalidAscendEffect.loadName, delay: invalidAscendEffect.timeTillExplode, shellDelay: currentDelay }
+            ));
         return false;
     }
 
@@ -521,7 +525,7 @@ function openAddAscendEffectWindow(): void {
                     }
                 }
             }),
-            label({ text: compute(selectedAscendLoad, l => l ? `Selected: ${l.name}` : t("Selected: none")) }),
+            label({ text: compute(selectedAscendLoad, l => l ? `${t("Selected: ")}${l.name}` : t("Selected: none")) }),
             numberInputSpinner({
                 labelText: t("Delay"),
                 labelWidth: 50,
@@ -692,7 +696,7 @@ export function createShellsTab() {
                                     flexible({
                                         direction: LayoutDirection.Horizontal,
                                         content: [
-                                            label({ text: compute(selectedLoadName, name => `Main Load: ${name.trim() + "   " + (persistent.GetLoadByName(name)?.GetSpriteString() || t("[Empty]"))}`), width: "1w" }),
+                                            label({ text: compute(selectedLoadName, name => `${t("Main Load: ")}${name.trim() + "   " + (persistent.GetLoadByName(name)?.GetSpriteString() || t("[Empty]"))}`), width: "1w" }),
                                             colouredButton({
                                                 text: t("Select Main Load"),
                                                 width: 120,
@@ -758,7 +762,12 @@ export function createShellsTab() {
                                                             const currentDelay = delay.get();
                                                             if (effects.length > 0 && effects[effects.length - 1].timeTillExplode >= currentDelay) {
                                                                 if (typeof ui !== "undefined" && typeof ui.showError === "function") {
-                                                                    ui.showError(t("Invalid ascend load"), `The last ascend load already fires at delay ${effects[effects.length - 1].timeTillExplode}, which is at or beyond the shell delay of ${currentDelay}.`);
+                                                                    const lastDelay = effects[effects.length - 1].timeTillExplode;
+                                                                    ui.showError(t("Invalid ascend load"), formatLocalized(
+                                                                        "The last ascend load already fires at delay {delay}, which is at or beyond the shell delay of {shellDelay}.",
+                                                                        `The last ascend load already fires at delay ${lastDelay}, which is at or beyond the shell delay of ${currentDelay}.`,
+                                                                        { delay: lastDelay, shellDelay: currentDelay }
+                                                                    ));
                                                                 }
                                                                 return;
                                                             }

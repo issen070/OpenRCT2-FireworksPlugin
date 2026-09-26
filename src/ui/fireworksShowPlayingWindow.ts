@@ -1,4 +1,4 @@
-import { t } from "../localization";
+import { formatLocalized, t } from "../localization";
 import {
     compute, flexible, label, listview, OpenWindow, store, tabwindow, Colour, tab,
     LayoutDirection
@@ -73,7 +73,14 @@ function getPlayingWindowDef(): { open(model: void): unknown } {
                 onOpen: () => { setMainWindowColours([Colour.DarkBlue, Colour.Black]); },
                 image: customImageFor("showTab"),
                 content: [
-                    label({ text: compute(statusRevision, () => `Show programme: ${getRunningShowCount()} show(s) running`) }),
+                    label({ text: compute(statusRevision, () => {
+                        const count = getRunningShowCount();
+                        return formatLocalized(
+                            "Show programme: {count} show(s) running",
+                            `Show programme: ${count} show(s) running`,
+                            { count }
+                        );
+                    }) }),
                     listview({
                         items: compute(statusRevision, () => getScheduledShowsStatus().map(s => ["{WHITE}"+s.name, "{WHITE}"+s.status])),
                         columns: [

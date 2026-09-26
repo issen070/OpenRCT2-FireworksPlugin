@@ -1,4 +1,4 @@
-import { t } from "../../localization";
+import { formatLocalized, t } from "../../localization";
 import { button, checkbox, Colour, compute, dropdown, flexible, groupbox, label, LayoutDirection, listview, store } from "openrct2-flexui";
 import { FountainEffect, FountainEffectPhase } from "../../fireworks/structures/effects/EmitterEffects/fountainEffect";
 import { Effect } from "../../fireworks/structures/Effect";
@@ -136,7 +136,11 @@ export function openFountainEffectWindow(effect: FountainEffect | undefined, onS
 
 	const totalDurationText = compute(phases, phaseList => {
 		const totalSecs = (phaseList.reduce((sum, p) => sum + p.duration, 0) / 40).toFixed(1);
-		return `Total Duration: ${totalSecs}s`;
+		return formatLocalized(
+			"Total Duration: {seconds}s",
+			`Total Duration: ${totalSecs}s`,
+			{ seconds: totalSecs }
+		);
 	});
 
 	const presetOptions = [t("Select preset"), ...fountainPresets.map(p => p.label)];
@@ -302,4 +306,3 @@ export function openFountainEffectWindow(effect: FountainEffect | undefined, onS
 		}
 	});
 }
-

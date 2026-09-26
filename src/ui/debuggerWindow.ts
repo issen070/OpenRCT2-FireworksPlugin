@@ -46,15 +46,15 @@ function openDebuggerExplanationWindow(): void {
 			label({ text: t("Skipped Fireworks is the number of shells that were\n skipped due to the limit being hit."), height: 28, width: "1w" }),
 			label({ text: "", height: 10, width: "1w" }),
 
-            label({ text:   "Some custom palettes can make the editor hard to use.\n" +
+            label({ text: t("Some custom palettes can make the editor hard to use.\n" +
                             "Use the default and restore palette buttons to\n" +
                             "manually easily switch between the default, and the\n" +
-                            "park's true palette.", height: 40, width: "1w" }),
+                            "park's true palette."), height: 40, width: "1w" }),
 			label({ text: "", height: 10, width: "1w" }),
-            label({ text:   "The Auto Switch Palletes button auto sets the\n " +
+            label({ text: t("The Auto Switch Palletes button auto sets the\n " +
                             "palette to the default when the editor is\n" +
                             "open, and back to the park's true palette during\n" +
-                            "tests and when the editor is closed.", height: 40, width: "1w" }),
+                            "tests and when the editor is closed."), height: 40, width: "1w" }),
 			flexible({
 				direction: LayoutDirection.Horizontal,
 				height: 14,
@@ -133,12 +133,12 @@ export function openDebuggerWindow(): void {
 
     const particleCountText = compute(particleCount, count => {
         const colour = count < 2500 ? "{GREEN}" : count < 3000 ? "{YELLOW}" : "{RED}";
-        return `{WHITE}ParticleCount: ${colour}${count}`;
+        return `${t("{WHITE}ParticleCount: ")}${colour}${count}`;
     });
 
     const miscEntityCountText = compute(miscEntityCount, count => {
         const colour = count < 500 ? "{GREEN}" : count < 1000 ? "{YELLOW}" : "{RED}";
-        return `{WHITE}Other Misc Entities: ${colour}${count}`;
+        return `${t("{WHITE}Other Misc Entities: ")}${colour}${count}`;
     });
 
     canRestorePaletteStore.set(canRestorePalette());
@@ -158,11 +158,11 @@ export function openDebuggerWindow(): void {
             label({ text: t("{RED}Warning: The debug window may cause lag.") }),
             label({ text: particleCountText }),
             label({ text: miscEntityCountText }),
-            label({ text: compute(spawnedCount, n => `{WHITE}Attempted Particles: {WHITE}${n}`) }),
-            label({ text: compute(skippedParticlesStore, n => `{WHITE}Skipped Particles: {WHITE}${n}`) }),
-            label({ text: compute(launchedCount, n => `{WHITE}Attempted Fireworks Lit: {WHITE}${n}`) }),
-            label({ text: compute(delayedCount, n => `{WHITE}Delayed Fireworks: {WHITE}${n}`) }),
-            label({ text: compute(skippedShotsStore, n => `{WHITE}Skipped Fireworks: {WHITE}${n}`) }),
+            label({ text: compute(spawnedCount, n => `${t("{WHITE}Attempted Particles: {WHITE}")}${n}`) }),
+            label({ text: compute(skippedParticlesStore, n => `${t("{WHITE}Skipped Particles: {WHITE}")}${n}`) }),
+            label({ text: compute(launchedCount, n => `${t("{WHITE}Attempted Fireworks Lit: {WHITE}")}${n}`) }),
+            label({ text: compute(delayedCount, n => `${t("{WHITE}Delayed Fireworks: {WHITE}")}${n}`) }),
+            label({ text: compute(skippedShotsStore, n => `${t("{WHITE}Skipped Fireworks: {WHITE}")}${n}`) }),
             flexible({
                 direction: LayoutDirection.Horizontal,
                 height: 22,
